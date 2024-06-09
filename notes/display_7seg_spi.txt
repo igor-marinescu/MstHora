@@ -1,0 +1,22 @@
+
+spisend 0xFFFFFFFF	// ____
+spisend 0x41cf684c	// 1234
+spisend 0x42D071C8	// AbCd
+
+Display Connector
+
+Con.| Display | Pico     | Pico 
+Pin | Signal  | Signal   | PinIdx
+----+---------+----------+-------
+B1  | MISO-   | -        | -
+A1  | VCC     | VSYS     | 39
+B2  | GND     | GND      | 38
+A2  | SLCK-   | SPI0 SCK | 24
+B3  | GND     | -        | -
+A3  | RCK     | SPI0 CSn | 22
+B4  | GND     | -        | -
+A4  | MOSI    | SPI0 TX  | 25
+B5  | GND     | -        | -
+A5  | /SS     | 3V3OUT   | 36
+B6  | GND     | -        | -
+A6  | IRQ     | -        | -

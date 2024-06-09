@@ -1,0 +1,11 @@
+
+MAX7219/MAX7221
+Serially Interfaced, 8-Digit LED Display Drivers
+
+
+LCD 2.3"
+
+FORYARD 
+FYS-23011AUHR-21
+https://www.tme.eu/de/details/fys-23011auhr-21/7-segment-led-anzeigen/foryard/
+https://www.tme.eu/Document/eca31d8839194960ce8cc750146e17b1/FYS-23011AUHR-21.pdf
