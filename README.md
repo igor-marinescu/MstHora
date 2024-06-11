@@ -1,6 +1,6 @@
 # Meister Hora: The DIY Digital Clock
 
-![MstHora intro](intro.jpg "MstHora intro")
+![MstHora intro](./intro.jpg)
 
 Introducing Meister Hora (MstHora), a sophisticated and versatile digital clock designed for tech enthusiasts and DIY hobbyists. Powered by the robust Raspberry Pi Pico board, this clock not only shows time but does so with precision and adaptability, making it a standout addition to any room.
 
