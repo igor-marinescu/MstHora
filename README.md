@@ -109,9 +109,9 @@ The build process generates `build/msthora.uf2` firmware file. To load the firmw
 
 ## Display
 
-The 7 segments display the current time in HH:MM format. The digits flash if the current time has not been validated by DCF or an external RTC (no valid time source available).
+The 7 segments display the current time in HH:MM format. The digits flash if the current time has not been validated by the DCF or the external RTC module (no valid time source available).
 
-The rightmost dot indicates the DCF status: permanently ON – the DCF signal is too weak (less than 80%) to synchronize the time; flashing – the DCF signal is strong enough, synchronization is in progress; permanently OFF – the DCF time has been successfully received and the time is synchronized.
+The rightmost dot indicates the DCF status: permanently ON – the DCF signal is too weak to synchronize the time; flashing – the DCF signal is strong enough, synchronization is in progress; permanently OFF – the DCF time has been successfully received and the time is synchronized.
 
 The second dot from the right indicates the status of the external RTC: permanently ON – the external RTC contains an invalid time; permanently OFF – the external RTC has an accurate time.
 
@@ -119,11 +119,11 @@ The third dot from the right flashes every 1 second.
 
 ## First Run
 
-The main source of the current time is the DCF signal. The first backup time source is the (external) RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
+The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
 
-On the first run, the external RTC has no valid time and the internal RTC starts counting from 0:00. The time digits are flashing, which means that no valid time source is available. The clock runs on the internal RTC. 
+On the first run, the external RTC has no valid time and the internal RTC starts counting from 0:00. The time digits are flashing, indicating no valid time source is available. The clock runs on the internal RTC. 
 
-With a good DCF signal, it takes about 3 seconds to receive and validate the current time from the DCF77 module. After reception, the current time is used to set the external RTC and adjust the internal RTC. The time digits no longer flash.
+With a good DCF signal, it takes about 5 seconds to receive and validate the current time from the DCF77 module. After reception, the current time is used to set the external RTC and adjust the internal RTC. The time digits no longer flash.
 
 
 ## Test MstHora
