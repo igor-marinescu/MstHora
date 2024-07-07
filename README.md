@@ -117,6 +117,10 @@ The second dot from the right indicates the status of the external RTC: permanen
 
 The third dot from the right flashes every 1 second.
 
+## Luminosity sensor
+
+MstHora adapts to its environment with an integrated luminosity sensor. The sensor constantly measures the brightness of the light in the room and dynamically adjusts the intensity of the 7-segment display. At night, the display is dimmed as much as possible to ensure optimal visibility and not disturb you while you sleep. During the day, the intensity of the 7-segment display is increased according to the brightness of the light - to enable you to read the current time comfortably.
+
 ## First Run
 
 The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
@@ -125,13 +129,15 @@ On the first run, the external RTC has no valid time and the internal RTC starts
 
 With a good DCF signal, it takes about 5 seconds to receive and validate the current time from the DCF77 module. After reception, the current time is used to set the external RTC and adjust the internal RTC. The time digits no longer flash.
 
-
 ## Test MstHora
 
-TODO!!!
+MstHora provides a CLI - Command Line (Serial) Interface. Through this interface, you can simply connect the clock to the PC, open a terminal and execute various commands to test and diagnose all components. The CLI can easily be extended to implement additional functionality.
 
 ## Electrical Characteristics
 
 Measurements:
-- Current at minimal intensity: 27mA @ 5V (135mW)
-- Current at maximal intensity: 45mA @ 5V (225mW)
+- Current at minimal display intensity: 27mA @ 5V (135mW)
+- Current at maximal display intensity: 45mA @ 5V (225mW)
+
+## Expanding MstHora's Functionality and Future Plans
+
