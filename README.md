@@ -41,71 +41,15 @@ In the *photos* folder there are some photos available that will help even bette
 
 ## Compile the Software and program MstHora
 
-### Install the Toolchain and the Raspberry Pi Pico C/C++ SDK
+Follow the instructions under [notes/how to compile](./notes/how%20to%20compile.md) to get the code, compile it, and load the firmware onto MstHora.
 
-Follow the instructions described in [Getting started with Raspberry Pi Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) to install the Toolchain and the SDK.
+## Time Sources
 
-Here is a quick cheat sheet:
+1. DCF77 Radio Module - receives the exact time every minute (with a good DCF signal).
+2. External RTC (DS3231) - accurate and keeps track of time even when turned off.
+3. Internal RTC (RP2040) - not accurate and loses time when switched off.
 
-Create a pico directory at `/home/<user>`:
-
-```
-$ cd 
-$ mkdir pico
-$ cd pico
-```
-
-Clone the pico-sdk and pico-examples git repositories:
-
-```
-$ git clone https://github.com/raspberrypi/pico-sdk.git --branch master
-$ cd pico-sdk
-$ git submodule update --init
-$ cd ..
-$ git clone https://github.com/raspberrypi/pico-examples.git --branch master
-```
-
-Install the toolchain:
-
-```
-$ sudo apt update
-$ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
-```
-
-Updating the SDK (when a new version of the SDK is released):
-
-```
-$ cd pico-sdk
-$ git pull
-$ git submodule update
-```
-
-### Clone MstHora repository and build the software
-
-Clone the MstHora git repository:
-
-```
-$ git clone https://github.com/igor-marinescu/MstHora.git
-$ cd MstHora
-```
-
-Export the path where pico-sdk directory is located:
-
-```
-$ export PICO_SDK_PATH=/home/<user>/pico/pico-sdk
-```
-
-Build the project:
-
-```
-$ cd build
-$ cmake ../src
-$ make -j4
-```
-
-### Load the Firmware onto MstHora
-
-The build process generates `build/msthora.uf2` firmware file. To load the firmware onto MstHora board, mount it as a USB Mass Storage Device and copy rhe uf2 file onto the board to program the flash. Hold down the BOOTSEL button while plugging in your device using a micro-USB cable to force it into USB Mass Storage Mode. RP2040 will reboot, unmount itself as a Mass Storage Device, and run the flashed code.
+The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
 
 ## Display
 
@@ -117,17 +61,19 @@ The second dot from the right indicates the status of the external RTC: permanen
 
 The third dot from the right flashes every 1 second.
 
-## Luminosity sensor
-
-MstHora adapts to its environment with an integrated luminosity sensor. The sensor constantly measures the brightness of the light in the room and dynamically adjusts the intensity of the 7-segment display. At night, the display is dimmed as much as possible to ensure optimal visibility and not disturb you while you sleep. During the day, the intensity of the 7-segment display is increased according to the brightness of the light - to enable you to read the current time comfortably.
-
-## First Run
-
-The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
+## First Power-On
 
 On the first run, the external RTC has no valid time and the internal RTC starts counting from 0:00. The time digits are flashing, indicating no valid time source is available. The clock runs on the internal RTC. 
 
 With a good DCF signal, it takes about 5 seconds to receive and validate the current time from the DCF77 module. After reception, the current time is used to set the external RTC and adjust the internal RTC. The time digits no longer flash.
+
+## Second and subsequent Power-On
+
+At the second and all subsequent power-ons, the external RTC already has a valid time - it is temporarily considered the main time source (until the DCF77 module receives the current time). The external RTC time is displayed and the internal RTC is set. The rightmost dot is ON (or flashing) - the DCF signal has not been received yet. After reception, the DCF current time is used to reset the external and internal RTC.
+
+## Luminosity sensor
+
+MstHora adapts to its environment with an integrated luminosity sensor. The sensor constantly measures the brightness of the light in the room and dynamically adjusts the intensity of the 7-segment display. At night, the display is dimmed to the maximum to ensure optimal visibility and not disturb sleep. During the day, the intensity of the 7-segment display is increased according to the brightness of the light - to enable the comfortably reading of the current time.
 
 ## Test MstHora
 
@@ -136,8 +82,13 @@ MstHora provides a CLI - Command Line (Serial) Interface. Through this interface
 ## Electrical Characteristics
 
 Measurements:
+
 - Current at minimal display intensity: 27mA @ 5V (135mW)
 - Current at maximal display intensity: 45mA @ 5V (225mW)
 
 ## Expanding MstHora's Functionality and Future Plans
 
+- Alarm clock, control a set of RGB-LEDs mounted in plexiglass.
+- Additional sensors (motion detector, microphone) to monitor sleep quality.
+- Bluetooth connectivity, alarm settings and sleep quality display.
+- SD card slot for collecting data (sleep quality, light sensor, wake/sleep times, etc).

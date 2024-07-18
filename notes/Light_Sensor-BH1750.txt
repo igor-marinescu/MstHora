@@ -1,8 +1,0 @@
-
-Pinout:
-
-    VCC = 3.3V
-    GND = GND
-    SCL
-    SDA
-    ADDR = GND (0x23), VCC (0x5C)
