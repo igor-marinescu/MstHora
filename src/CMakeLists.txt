@@ -5,7 +5,7 @@ include(pico_sdk_import.cmake)
 
 include(pico_extras_import_optional.cmake)
 
-project(test1 C CXX ASM)
+project(msthora C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -42,8 +42,8 @@ add_compile_definitions(DCF77_DEBUG)
 #add_compile_definitions(RTC_INTERN_DEBUG)
 add_compile_definitions(MAIN_DEBUG)
 
-add_executable(test1)
-target_sources(test1 PRIVATE 
+add_executable(msthora)
+target_sources(msthora PRIVATE 
         ustime.c ustime.h
         utils.c utils.h
         gpio_drv.c gpio_drv.h 
@@ -73,17 +73,17 @@ target_sources(test1 PRIVATE
 #
 option(USE_DISP_MAX "Option to use display max" ON)
 if(USE_DISP_MAX)
-        target_sources(test1 PRIVATE disp_max.c disp_max.h)
+        target_sources(msthora PRIVATE disp_max.c disp_max.h)
         add_compile_definitions(DISP_INCLUDE="disp_max.h")
         message("USE_DISP_MAX: ON")
 else()
-        target_sources(test1 PRIVATE disp7seg.c disp7seg.h)
+        target_sources(msthora PRIVATE disp7seg.c disp7seg.h)
         add_compile_definitions(DISP_INCLUDE="disp7seg.h")
         message("USE_DISP_MAX: OFF")
 endif()
 
 # pull in common dependencies and additional uart hardware support
-target_link_libraries(test1 
+target_link_libraries(msthora 
         pico_stdlib 
         hardware_uart 
         hardware_spi 
@@ -92,4 +92,4 @@ target_link_libraries(test1
         )
 
 # create map/bin/hex file etc.
-pico_add_extra_outputs(test1)
+pico_add_extra_outputs(msthora)

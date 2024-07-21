@@ -49,7 +49,7 @@ Follow the instructions under [notes/how to compile](./notes/how%20to%20compile.
 2. External RTC (DS3231) - accurate and keeps track of time even when turned off.
 3. Internal RTC (RP2040) - not accurate and loses time when switched off.
 
-The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops when the device is turned off and is reset when it is turned on.
+The main source of the current time is the DCF signal. The first backup time source is the external RTC clock, which ensures accurate timekeeping even when the device is turned off. The second backup time source is the internal RTC. It maintains timekeeping in case the two time sources mentioned above are temporarily unavailable, but stops and loses time when the device is turned off.
 
 ## Display
 
